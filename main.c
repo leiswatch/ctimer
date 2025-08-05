@@ -15,6 +15,7 @@
 #define TEXT_SCALE 0.21
 #define SPACING 10.0
 #define TIMER_COUNT 8
+#define MAX_TIME 60 * 60 * 99
 #define ZERO "0"
 #define SEMI ":"
 
@@ -73,6 +74,11 @@ float parse_time(const char* time) {
     if (*time) {
       time += 1;
     }
+  }
+
+  if (result > MAX_TIME) {
+    fprintf(stderr, "You can't pass more than 99 hours\n");
+    exit(EXIT_FAILURE);
   }
 
   return result;
@@ -150,7 +156,7 @@ int main(int argc, char* argv[]) {
     seconds = (uint32_t)parse_time(argv[1]);
   }
 
-  SetTraceLogLevel(LOG_DEBUG);
+  SetTraceLogLevel(LOG_NONE);
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "ctimer");
   InitAudioDevice();
   SetWindowState(FLAG_WINDOW_RESIZABLE);
@@ -218,7 +224,8 @@ int main(int argc, char* argv[]) {
         }
         break;
       case MODE_ASCENDING:
-        if (seconds > 3600) {
+        if (seconds > MAX_TIME) {  // support only 99hrs
+          PlaySound(sound);
           sleep(1);
           goto endProgram;
         }
