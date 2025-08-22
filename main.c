@@ -1,13 +1,12 @@
 /* Copyright(c) 2025 leiswatch. All Rights Reserved. */
 
 #include <math.h>
+#include <raylib.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "raylib/include/raylib.h"
 
 #define WINDOW_WIDTH 600
 #define WINDOW_HEIGHT 300
